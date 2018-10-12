@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous">
+<title>Insert title here</title>
+</head>
+<body>
+	<div class="container" margin="200px">
+		<form th:action="@{/logout}" method="get">
+			<button name="logout" type="Submit">Logout</button>
+		</form>
+
+		<p>
+			Welcome <span th:utext="${user.name}"></span> <span
+				th:utext="${adminMessage}"></span>
+		</p>
+
+		<h2>Your Reading List</h2>
+		<table class="table table-striped">
+			<tr>
+				<th>Title</th>
+				<th>Author</th>
+				<th>ISBN</th>
+				<th>Description</th>
+				<th>Obrisi</th>
+				<th>Izmeni</th>
+			</tr>
+			<div th:unless="${#lists.isEmpty(books)}">
+				<dl th:each="book : ${books}">
+					<tr>
+						<th><span th:text="${book.title}">Title</span></th>
+						<th><span th:text="${book.author}">Author</span></th>
+						<th><span th:text="${book.isbn}">ISBN</span></th>
+						<th><span th:if="${book.description}"
+							th:text="${book.description}">Description</span></th>
+						<span th:if="${book.description eq null}"> No description
+							available</span>
+						<th><a th:href="@{/deleteBook/{id}(id=${book.id})}"
+							class="btn btn-danger">Obrisi</a></th>
+						<th><a th:href="@{/updateBook/{id}(id=${book.id})}"
+							class="btn btn-primary btn-xs">Izmeni</a></th>
+					</tr>
+				</dl>
+			</div>
+			<div th:if="${#lists.isEmpty(books)}">
+				<p>You have no books in your book list</p>
+			</div>
+		</table>
+		<hr />
+		<h3>Add a book</h3>
+		<form th:action="@{/admin/home}" method="post">
+			<div class="form-group">
+				<label for="title">Title:</label> <input type="text"
+					class="form-control" name="title" th:field="${book.title}">
+				</input><br />
+			</div>
+			<div class="form-group">
+				<label for="reader">Reader:</label> <input type="text" name="reader"
+					class="form-control" th:field="${book.reader}"></input><br />
+				<div class="form-group">
+					<label for="author">Author:</label> <input type="text"
+						name="author" class="form-control" th:field="${book.author}"></input><br />
+				</div>
+				<div class="form-group">
+					<label for="isbn">ISBN:</label> <input type="text" name="isbn"
+						class="form-control" th:field="${book.isbn}"></input><br />
+				</div>
+				<div class="form-group">
+					<label for="description">Description:</label><br />
+					<textarea name="description" cols="80" rows="5"
+						th:field="${book.description}"></textarea>
+				</div>
+				<br /> <input type="submit"></input>
+		</form>
+	</div>
+</body>
+</html>

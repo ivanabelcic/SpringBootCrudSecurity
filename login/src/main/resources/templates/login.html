@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<title>Login</title>
+</head>
+<body>
+<div class="container" margin="200px">
+	<form th:action="@{/login}" method="post">
+	<div class="form-group">
+		<input type="email" class="form-control" name="email" id="email" placeholder="Unesite email" /><br/>
+		</div>
+		<div class="form-group">
+		<input type="password" class="form-control" name="password" id="password" placeholder="Unesite password" /><br/>
+			</div>
+			<div class="form-group">
+		<input type="submit" value="Login" id="submit"/>
+		</div>
+	</form>
+	<br/>
+	<a  class="btn btn-default" th:href="@{/registration}">Nemate nalog? Registrujte se</a>
+	</div>
+</body>
+</html>
